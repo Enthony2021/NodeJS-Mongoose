@@ -1,0 +1,27 @@
+{
+  "name": "12_mongodb",
+  "version": "1.0.0",
+  "description": "Projeto para estudo no curso de \"NodeJS do zero a Maestria\".\r O Objetivo é criar uma aplicação MVC que faça CRUD com mongoDB.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Enthony2021/NodeJS_MongoDB.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Enthony2021/NodeJS_MongoDB/issues"
+  },
+  "homepage": "https://github.com/Enthony2021/NodeJS_MongoDB#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6",
+    "mongodb": "^4.7.0",
+    "nodemon": "^2.0.19"
+  }
+}

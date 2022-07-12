@@ -4,7 +4,7 @@ const { connect } = require('../routes/productsRoutes')
 module.exports = class ProductController {
     
     static async showProducts(req, res) {
-        const products = await Product.getProducts()
+        const products = await Product.find().lean()
 
         res.render('products/all', { products })
     }
@@ -13,30 +13,28 @@ module.exports = class ProductController {
         res.render('products/create')
     }
 
-    static createProductPost(req, res) {
+    static async createProductPost(req, res) {
         const {name, image, price, description } = req.body
 
-        const product = new Product(name, image, price, description)
-        product.save()
+        const product = new Product({name, image, price, description})
+        await product.save()
 
         res.redirect('/products')
     }
 
     static async getProduct(req, res) {
-        
         const id = req.params.id
 
-        const product = await Product.getProductById(id)
+        const product = await Product.findById(id).lean()
 
         res.render('products/product', { product })
 
     }
 
     static async removeProduct(req, res) {
-
         const id = req.params.id
 
-        await Product.removeProductById(id)
+        await Product.deleteOne({_id: id})
 
         res.redirect('/products')
     }
@@ -44,7 +42,7 @@ module.exports = class ProductController {
     static async editProduct(req, res) {
         const id = req.params.id
 
-        const product = await Product.getProductById(id)
+        const product = await Product.findById(id).lean()
 
         res.render('products/edit', { product })
     }
@@ -52,11 +50,9 @@ module.exports = class ProductController {
     static async editProductPost(req, res) {
         const { id, name, image, price, description } = req.body
 
-        const product = new Product(name, image, price, description)
-
-        await product.updateProduct(id)
-
-
+        const product = { name, image, price, description }
+        
+        await Product.updateOne({_id: id}, product) 
 
         res.redirect('/products')
     }
